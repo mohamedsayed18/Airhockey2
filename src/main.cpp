@@ -75,8 +75,8 @@ int main() {
     
     body->CreateFixture(&fixtureDef);
     b2Vec2 p = body->GetWorldPoint(b2Vec2(0.0f, 0.0f));
-    b2Vec2 f (0.0f, 2.0f);
-    body->ApplyForce(f, p, true);
+    b2Vec2 f (0.1f, 0.03f);
+    body->ApplyLinearImpulse( f, p, true);
 
     //simulation
     //Let's start simulation
