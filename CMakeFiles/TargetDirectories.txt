@@ -1,0 +1,3 @@
+/media/mohamed/C03CCDB43CCDA62E/work/Code/VC_example/CMakeFiles/rebuild_cache.dir
+/media/mohamed/C03CCDB43CCDA62E/work/Code/VC_example/CMakeFiles/Vc_example.dir
+/media/mohamed/C03CCDB43CCDA62E/work/Code/VC_example/CMakeFiles/edit_cache.dir

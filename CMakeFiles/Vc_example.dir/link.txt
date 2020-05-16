@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/Vc_example.dir/src/main.cpp.o  -o Vc_example  /home/mohamed/vcpkg/installed/x64-linux/debug/lib/libbox2d.a -lsfml-graphics -lsfml-window -lsfml-system -lX11 -lXrandr -ludev 
