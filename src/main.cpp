@@ -2,6 +2,7 @@
 TODO
 simple ball with graphics
     * dynamic ball 
+    * grapgic window
 */
 #include <iostream>
 #include <box2d/box2d.h>
@@ -49,4 +50,32 @@ int main() {
         float angle = body->GetAngle();
         printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
     }
+    
+    // The GUI window
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(10.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        
+        world.Step(timeStep, velocityIterations, positionIterations);
+        b2Vec2 position = body->GetPosition();
+        float angle = body->GetAngle();
+        
+        shape.setPosition(position.x, position.y);
+        
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
+    //clean the world
+    //world->DestroyBody(body);
+    return 0;
 }
