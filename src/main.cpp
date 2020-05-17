@@ -4,7 +4,8 @@ simple ball with graphics
     * dynamic ball 
     * grapgic window
 
-walls for the playground
+walls for the playground: polygonShape.SetAsEdge( b2Vec2(-15,0), b2Vec2(15,0) );
+Let's create players
 */
 #include <iostream>
 #include <box2d/box2d.h>
@@ -15,6 +16,10 @@ walls for the playground
 //Creating a world (global)
 b2Vec2 gravity(0.0f, 0.0f);     //no gravity in x or y
 b2World world(gravity);
+b2Body* player1;
+b2Body* player2;
+b2Body* player3;
+b2Body* player4;
 
 void walls(){
     //Creating walls
@@ -42,9 +47,9 @@ void walls(){
     b2FixtureDef wall_fix1;
     b2FixtureDef wall_fix2;
     wall_fix1.shape = &groundBox1;
-    wall_fix1.restitution = 1;
+    wall_fix1.restitution = 0;
     wall_fix2.shape = &groundBox2;
-    wall_fix2.restitution = 1;
+    wall_fix2.restitution = 0;
     
     wall1->CreateFixture(&wall_fix1);
     wall2->CreateFixture(&wall_fix2);
@@ -52,8 +57,49 @@ void walls(){
     wall4->CreateFixture(&wall_fix2);
 }
 
+void players(){
+    //Create dynamic body (ball)
+    b2BodyDef p1;
+    b2BodyDef p2;
+    b2BodyDef p3;
+    b2BodyDef p4;
+    p1.type = b2_dynamicBody;
+    p2.type = b2_dynamicBody;
+    p3.type = b2_dynamicBody;
+    p4.type = b2_dynamicBody;
+    p1.position.Set(5.5f, 1.5f); //player 1
+    p2.position.Set(5.5f, 2.5f); //player 2
+    p3.position.Set(1.5f, 1.5f); //player 3
+    p4.position.Set(1.5f, 2.5f); //player 4
+    
+    //shape
+    b2CircleShape circle;
+    circle.m_p.Set(0.0f, 0.0f); //Position with respect to centre of shape
+    circle.m_radius = 0.1f;     //10 pixel
+    
+    //fixture
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &circle;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.1f;
+    fixtureDef.restitution = 0.5;
+    
+    //Create bodies
+    player1 = world.CreateBody(&p1);  //Create the body
+    player2 = world.CreateBody(&p2);  //Create the body
+    player3 = world.CreateBody(&p3);  //Create the body
+    player4 = world.CreateBody(&p4);  //Create the body
+    
+    // Create fixtures for the players
+    player1->CreateFixture(&fixtureDef);
+    player2->CreateFixture(&fixtureDef);
+    player3->CreateFixture(&fixtureDef);
+    player4->CreateFixture(&fixtureDef);
+}
+
 int main() {
     walls();
+    players();
     //Create dynamic body (ball)
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -71,13 +117,13 @@ int main() {
     fixtureDef.shape = &player;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.1f;
-    fixtureDef.restitution = 1;
+    fixtureDef.restitution = 0.5;
     
     body->CreateFixture(&fixtureDef);
     b2Vec2 p = body->GetWorldPoint(b2Vec2(0.0f, 0.0f));
-    b2Vec2 f (0.1f, 0.03f);
-    body->ApplyLinearImpulse( f, p, true);
-
+    b2Vec2 f (2.1f, 0.3f);
+    body->ApplyLinearImpulse( f, p, false);
+    
     //simulation
     //Let's start simulation
     float timeStep = 1.0f / 60.0f;
@@ -89,7 +135,15 @@ int main() {
     // The ball
     sf::CircleShape ball(10.f);
     ball.setFillColor(sf::Color::Green);
-    
+    // players
+    sf::CircleShape pl1(10.f);
+    sf::CircleShape pl2(10.f);
+    sf::CircleShape pl3(10.f);
+    sf::CircleShape pl4(10.f);
+    pl1.setFillColor(sf::Color::Blue);
+    pl2.setFillColor(sf::Color::Blue);
+    pl3.setFillColor(sf::Color::Blue);
+    pl4.setFillColor(sf::Color::Blue);
     
     // The walls
     sf::RectangleShape rectangle1(sf::Vector2f(700.f, 50.f));
@@ -112,11 +166,20 @@ int main() {
         }
         
         world.Step(timeStep, velocityIterations, positionIterations);
+        //body->ApplyLinearImpulse( b2Vec2 (0.0f, 0.0f), p, true);
         b2Vec2 position = body->GetPosition();
+        b2Vec2 p1_pos = player1->GetPosition();
+        b2Vec2 p2_pos = player2->GetPosition();
+        b2Vec2 p3_pos = player3->GetPosition();
+        b2Vec2 p4_pos = player4->GetPosition();
         float angle = body->GetAngle();
         printf("%4.2f  %4.2f\n", position.x, position.y);
         
         ball.setPosition(position.x*SCALE, position.y*SCALE);
+        pl1.setPosition(p1_pos.x*SCALE, p1_pos.y*SCALE);
+        pl2.setPosition(p2_pos.x*SCALE, p2_pos.y*SCALE);
+        pl3.setPosition(p3_pos.x*SCALE, p3_pos.y*SCALE);
+        pl4.setPosition(p4_pos.x*SCALE, p4_pos.y*SCALE);
         
         window.clear();
         window.draw(ball);
@@ -124,6 +187,10 @@ int main() {
         window.draw(rectangle2);
         window.draw(rectangle3);
         window.draw(rectangle4);
+        window.draw(pl1);
+        window.draw(pl2);
+        window.draw(pl3);
+        window.draw(pl4);
         window.display();
     }
     //clean the world
