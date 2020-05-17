@@ -120,9 +120,9 @@ int main() {
     fixtureDef.restitution = 0.5;
     
     body->CreateFixture(&fixtureDef);
-    b2Vec2 p = body->GetWorldPoint(b2Vec2(0.0f, 0.0f));
-    b2Vec2 f (2.1f, 0.3f);
-    body->ApplyLinearImpulse( f, p, false);
+    //b2Vec2 p = body->GetWorldPoint(b2Vec2(0.0f, 0.0f));
+    //b2Vec2 f (2.1f, 0.3f);
+    //body->ApplyLinearImpulse( f, p, false);
     
     //simulation
     //Let's start simulation
