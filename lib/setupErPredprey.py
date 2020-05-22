@@ -21,8 +21,13 @@ import numpy
 #lib_gsl_dir = "/usr/lib/x86_64-linux-gnu"
 
 # mac os
-include_gsl_dir = "/usr/local/Cellar/gsl/2.4/lib"
-lib_gsl_dir = "/usr/local/Cellar/gsl/2.4/include"
+#include_gsl_dir = "/usr/local/Cellar/gsl/2.4/lib"
+#lib_gsl_dir = "/usr/local/Cellar/gsl/2.4/include"
+
+# including the box2d
+include_gsl_dir = "/usr/include/box2d"
+lib_gsl_dir = "/usr/lib/x86_64-linux-gnu"
+
 
 setup(
     cmdclass = {'build_ext': build_ext},
@@ -31,6 +36,7 @@ setup(
                              language="c++",
                              include_dirs=[numpy.get_include(), include_gsl_dir],
 			     libraries=["gsl", "gslcblas"],
+                 extra_compile_args=['-std=c++11'],
 			     library_dirs=[lib_gsl_dir])],
 )
 

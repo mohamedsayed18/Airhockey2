@@ -13,6 +13,8 @@ should we start the game(reset) with players and ball at the same position
 #include <time.h>
 #include <ctype.h>
 #include <string.h>
+#include "predprey.h"
+#include "robot-env.h"
 #include "proj.cpp"
 
 int cstep;      // the current step
@@ -160,6 +162,8 @@ void Problem::close()
 */
 void Problem::render()
 {
+    
+    /*
     sf::CircleShape players_GUI[5];
     // The GUI 
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");    //Window
@@ -213,5 +217,7 @@ void Problem::render()
         window.draw(rectangle4);
         window.display();
         window.close(); //todo remove window close() or keep it
+        
     }
+    */
 }

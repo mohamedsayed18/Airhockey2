@@ -4,7 +4,7 @@ TODO
 */
 #include <iostream>
 #include <box2d/box2d.h>
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
 #define SCALE 100
 
@@ -20,7 +20,7 @@ b2Body* player2;
 b2Body* player3;
 b2Body* player4;
 b2Body* ice_ball;
-b2Body players_list[5]; // 4 Players and 1 ball
+b2Body* players_list[5]; // 4 Players and 1 ball
 
 
 void walls(){
@@ -94,7 +94,7 @@ void playersandball(){
     players_list[1] = world.CreateBody(&p2);  //Create the body
     players_list[2] = world.CreateBody(&p3);  //Create the body
     players_list[3] = world.CreateBody(&p4);  //Create the body
-    players_list[4]= world.CreateBody(&ice_ball);  //Create the body
+    players_list[4]= world.CreateBody(&ice_b);  //Create the body
 
     // Create fixtures for the players
     for(int i=0; i<5; i++){
@@ -108,7 +108,7 @@ void move_step(float *actions){
     */
     for(int i=0; i<4; i+=2){
         b2Vec2 p = players_list[i]->GetWorldPoint(b2Vec2(0.0f, 0.0f));
-        b2Vec2 f = (actions[i], actions[i+1]);
+        b2Vec2 f(actions[i], actions[i+1]);
         players_list[i]->ApplyLinearImpulse( f, p, false);
     }
     world.Step(timeStep, velocityIterations, positionIterations);
