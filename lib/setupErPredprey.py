@@ -38,6 +38,7 @@ setup(
 			     libraries=["gsl", "gslcblas"],
                  extra_compile_args=['-std=c++11'],
 			     library_dirs=[lib_gsl_dir])],
+                 runtime_library_dirs=[lib_gsl_dir]
 )
 
 

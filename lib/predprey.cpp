@@ -14,7 +14,6 @@ should we start the game(reset) with players and ball at the same position
 #include <ctype.h>
 #include <string.h>
 #include "predprey.h"
-#include "robot-env.h"
 #include "proj.cpp"
 
 int cstep;      // the current step
@@ -23,7 +22,7 @@ float* caction;     // Pointer to the actions
 int* cdone;     // Pointer to termination flag
 // Pointer to world objects to be rendered
 double* dobjects;   //KEEP THIS ALSO IF YOU DO NOT NEED IT
-
+extern int nrobots;
 
 Problem::Problem() 
 {
@@ -43,8 +42,6 @@ Problem::Problem()
     noutputs = 2;    //force (x,y)(2)
 }
 
-Problem::~Problem()
-{}
 
 /*
 * set the seed
@@ -160,10 +157,12 @@ void Problem::close()
 * create the list of robots and environmental objects to be rendered graphically
 * HERE YOU SHOULD INCLUDE THE RENDERING OF ONE STEP
 */
+
+
 void Problem::render()
 {
     
-    /*
+   /*
     sf::CircleShape players_GUI[5];
     // The GUI 
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");    //Window
@@ -221,3 +220,4 @@ void Problem::render()
     }
     */
 }
+

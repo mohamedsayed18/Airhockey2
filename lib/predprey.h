@@ -22,7 +22,7 @@ public:
 	// Void constructor
 	Problem();
 	// Destructor
-	~Problem();
+	//~Problem();
 	// Set the seed
 	void seed(int s);
 	// Reset episode
@@ -50,7 +50,7 @@ public:
 
 private:
 	// create the environment
-    void initEnvironment();
+    //void initEnvironment();
     // compute the state of the observation
 	void getObs();
 	// Random generator
